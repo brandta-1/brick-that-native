@@ -1,9 +1,8 @@
-import PageHeader from './components/PageHeader';
-import Canvas from './components/Canvas';
-import { getDb, deleteDb } from './idb';
-import React, { useState, useEffect } from 'react';
+import { Canvas, PageHeader } from './components';
+import { getDb, deleteDb } from './utils/idb';
+import { useState, useEffect } from 'react';
 import { SafeAreaView, View, Pressable, Text } from 'react-native';
-import styles from './styles';
+import styles from './utils/styles';
 export default function Library() {
 
     const [images, setImages] = useState([]);
@@ -32,7 +31,6 @@ export default function Library() {
                     {!images.length && (
 
                         <Text style={[styles.notice, styles.text]}>Your library is empty. Go to the Create screen to add art</Text>
-
                     )}
 
                     {images.map((i, j) => {
@@ -46,8 +44,9 @@ export default function Library() {
                                     width={i.width}
                                     height={i.height}
                                 />
-
-                                <Pressable onPress={() => remove(i.id)} style={[styles.button, { width: "95%", marginTop: 0, marginBottom: 4 }]}>
+                                <Pressable onPress={() => remove(i.id)}
+                                    style={[styles.button, { width: "95%", marginTop: 0, marginBottom: 4 }]}
+                                >
                                     <Text style={styles.text}>Delete</Text>
                                 </Pressable>
 

@@ -15,9 +15,7 @@ const initdb = async () =>
 export const postDb = async (canvas) => {
 
     ctx = canvas.getContext("2d");
-    console.log("this is ctx", ctx);
     var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    console.log("imgData", imgData);
     var buffer = imgData.data.buffer;
 
     const legos = await openDB('brickThatLibrary', 1);
@@ -29,7 +27,8 @@ export const postDb = async (canvas) => {
     const req = store.add({ data: buffer, width: canvas.width, height: canvas.height });
 
     const res = await req;
-    console.log('saved to db', res);
+
+    return res;
 }
 
 export const getDb = async () => {

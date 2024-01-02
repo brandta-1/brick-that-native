@@ -1,4 +1,6 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
+
+export const wide = 720;
 
 export default StyleSheet.create({
     button: {
@@ -29,10 +31,10 @@ export default StyleSheet.create({
     },
     notice: {
         fontSize: 17,
-        marginLeft: "20%",
-        marginRight: "20%",
+        marginLeft: "17.5%",
+        marginRight: "17.5%",
         marginTop: "40%",
-        width: "60%",
+        width: "65%",
         textAlign: "center"
     },
     container: {
@@ -42,7 +44,6 @@ export default StyleSheet.create({
     content: {
         flex: 1,
         width: "100%",
-        maxWidth: 550
+        maxWidth: wide
     },
- 
 })

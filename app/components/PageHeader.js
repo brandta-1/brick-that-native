@@ -1,10 +1,8 @@
-import { Stack, Link } from 'expo-router';
-import { Pressable } from 'react-native';
-import styles from "../styles";
+import { Stack } from 'expo-router';
+import { PageHeaderButton } from '../components';
 
 export default function PageHeader({ page }) {
 
-    
     var pages = {
 
         library: {
@@ -13,12 +11,12 @@ export default function PageHeader({ page }) {
             button: "Library"
         },
         about: {
-            link: "",
+            link: "about",
             title: "Brick That",
             button: "About"
         },
         create: {
-            link: "create",
+            link: "index",
             title: "Brick That",
             button: "Create"
         }
@@ -34,14 +32,10 @@ export default function PageHeader({ page }) {
             options={{
                 title: `${current.title}`,
                 headerLeft: () => (
-                    <Pressable style={[styles.button, styles.titleButton, { marginLeft: "5%" }]}>
-                        <Link replace style={[styles.text, { fontSize: 15 }]} href={`/${other[0].link}`}>{other[0].button}</Link>
-                    </Pressable>
+                    <PageHeaderButton page={other[0]} left />
                 ),
                 headerRight: () => (
-                    <Pressable style={[styles.button, styles.titleButton, { marginRight: "5%" }]}>
-                        <Link replace style={[styles.text, { fontSize: 15 }]} href={`/${other[1].link}`}>{other[1].button}</Link>
-                    </Pressable>
+                    <PageHeaderButton page={other[1]} />
                 )
             }}
         />

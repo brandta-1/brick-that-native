@@ -1,6 +1,6 @@
 import { Asset } from 'expo-asset';
 
-export default function DrawLego({ picture, c, create }) {
+export default function DrawLego({ picture, c }) {
 
     const viewWidth = picture.width - (picture.width % 32);
     const viewHeight = picture.height - (picture.height % 32);
@@ -52,8 +52,5 @@ export default function DrawLego({ picture, c, create }) {
             }
         }
     }
-
-    if (create) {
         draw();
-    }
 }
