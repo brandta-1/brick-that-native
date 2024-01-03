@@ -1,6 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, useWindowDimensions } from 'react-native';
 
 export const wide = 720;
+
+export const dynamicWidth = () => {
+    const { width } = useWindowDimensions();
+    return width < wide ? "95%" : "100%"
+}
 
 export default StyleSheet.create({
     button: {
@@ -10,9 +15,6 @@ export default StyleSheet.create({
         borderWidth: 2,
         borderColor: '#20232a',
         elevation: 3,
-        marginLeft: 2,
-        marginRight: 2,
-        marginTop: 4,
         backgroundColor: '#f4511e',
         alignItems: 'center'
     },
@@ -39,11 +41,13 @@ export default StyleSheet.create({
     },
     container: {
         flex: 1,
-        alignItems: "center"
+        alignItems: "center",
+        gap: 4
     },
     content: {
         flex: 1,
         width: "100%",
         maxWidth: wide
     },
+
 })

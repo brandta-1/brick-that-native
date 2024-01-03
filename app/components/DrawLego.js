@@ -25,15 +25,9 @@ export default function DrawLego({ picture, c }) {
     console.log(ctx);
     ctx.drawImage(imgTest, 0, 0, viewWidth, viewHeight);
 
-    let pixelArr = ctx.getImageData(0, 0, viewWidth, viewHeight).data;
-    let redArr;
-    let greenArr;
-    let blueArr;
-    console.log("pixelArr", pixelArr);
-
     async function draw() {
 
-        const [{ localUri }] = await Asset.loadAsync(require('../assets/brick.png'));
+        const [{ localUri }] = await Asset.loadAsync(require('../assets/brick-32.png'));
         const brick = new Image();
         brick.src = localUri;
         await brick.decode();
@@ -43,10 +37,12 @@ export default function DrawLego({ picture, c }) {
         for (let i = 0; i < w; i += br) {
             for (let j = 0; j < h; j += br) {
 
-                ctx.drawImage(brick, 0, 0, br, br, i, j, br, br);
+                let pixelArr = ctx.getImageData(i, j, br, br).data;
 
-                let p = (i + (j * w)) * 4;
-                const currRGBA = "rgba(" + pixelArr[p] + "," + pixelArr[p + 1] + "," + pixelArr[p + 2] + ", .75)"
+                console.log("this is pixelArr", pixelArr);
+
+                const currRGBA = "rgba(" + pixelArr[0] + "," + pixelArr[1] + "," + pixelArr[2] + ", .75)";
+                ctx.drawImage(brick, 0, 0, br, br, i, j, br, br);
                 ctx.fillStyle = currRGBA;
                 ctx.fillRect(i, j, br, br);
             }

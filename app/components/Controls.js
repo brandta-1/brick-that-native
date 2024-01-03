@@ -2,19 +2,19 @@ import { View, Text, Pressable } from 'react-native';
 import { postDb } from '../utils/idb';
 import styles from '../utils/styles';
 
-export default function Controls({ img, isCanv, currCanv, pickImage, setCanv }) {
+export default function Controls({ img, isCanv, currCanv, pickImage, setCanv, dWidth }) {
     return (
         <>
-            <View style={{ flexDirection: "row ", width: "95%", justifyContent: "center" }}>
+            <View style={{ flexDirection: "row ", justifyContent: "space-between", width: dWidth, gap: 4 }}>
                 <Pressable
                     onPress={pickImage}
-                    style={[styles.button, { width: "50%" }]}
+                    style={[styles.button, { flex: 1, }]}
                 >
                     <Text style={styles.text}>{img ? "New image" : "Select image"}</Text>
                 </Pressable>
                 {img &&
                     <Pressable
-                        style={[styles.button, { width: "50%" }]}
+                        style={[styles.button, { flex: 1, }]}
                         onPress={() => setCanv(true)}
                     >
                         <Text style={styles.text}>Convert image</Text>
@@ -22,13 +22,13 @@ export default function Controls({ img, isCanv, currCanv, pickImage, setCanv }) 
                 }
             </View>
             {img &&
-                <Pressable style={[styles.button, { width: "95%", marginBottom: 4 }]}>
+                <Pressable style={[styles.button, { width: dWidth }]}>
                     <Text style={styles.text}>Settings</Text>
                 </Pressable>
             }
             {isCanv &&
                 <Pressable
-                    style={[styles.button, { width: "95%", marginTop: 0, marginBottom: 4 }]}
+                    style={[styles.button, { width: dWidth,}]}
                     onPress={() => postDb(currCanv)}
                 >
                     <Text style={styles.text}>Add to library</Text>

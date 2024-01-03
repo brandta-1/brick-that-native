@@ -10,14 +10,13 @@ export default function PageHeaderButton({ page, left }) {
 
     const navigation = useNavigation();
 
-    const wideMargin = width < wide ? 4 : 4 + (width - wide) / 2
+    const wideMargin = width < wide ? "5%" : (width - wide) / 2
 
     const marginStyle = left ?
         { marginLeft: wideMargin } :
         { marginRight: wideMargin }
 
     return (
-
         <Pressable
             onPress={() => navigation.navigate(`${link}`)}
             style={[styles.button, styles.titleButton, marginStyle]}

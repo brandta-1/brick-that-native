@@ -2,8 +2,10 @@ import { Canvas, PageHeader } from './components';
 import { getDb, deleteDb } from './utils/idb';
 import { useState, useEffect } from 'react';
 import { SafeAreaView, View, Pressable, Text } from 'react-native';
-import styles from './utils/styles';
+import styles, { dynamicWidth } from './utils/styles';
 export default function Library() {
+
+    const dWidth = dynamicWidth();
 
     const [images, setImages] = useState([]);
 
@@ -27,7 +29,7 @@ export default function Library() {
         <>
             <SafeAreaView style={styles.container}>
                 <PageHeader page={"library"} />
-                <View style={[styles.content]}>
+                <View style={[styles.content, {gap: 4, marginTop: 4, paddingBottom: 4}]}>
                     {!images.length && (
 
                         <Text style={[styles.notice, styles.text]}>Your library is empty. Go to the Create screen to add art</Text>
@@ -35,17 +37,17 @@ export default function Library() {
 
                     {images.map((i, j) => {
                         return (
-                            <View key={i.id} style={[styles.view, { marginTop: 4 }]}>
+                            <View key={i.id} style={[styles.view, {gap: 4}]}>
 
                                 <Canvas
                                     picture={i}
                                     name={`canvas-${j}`}
-                                    style={{ width: "95%", marginBottom: 4 }}
+                                    style={{ width: dWidth,  }}
                                     width={i.width}
                                     height={i.height}
                                 />
                                 <Pressable onPress={() => remove(i.id)}
-                                    style={[styles.button, { width: "95%", marginTop: 0, marginBottom: 4 }]}
+                                    style={[styles.button, { width: dWidth }]}
                                 >
                                     <Text style={styles.text}>Delete</Text>
                                 </Pressable>
