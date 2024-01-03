@@ -9,16 +9,17 @@ export default function Library() {
 
     const [images, setImages] = useState([]);
 
+    //retrieve user images on initial page load
     useEffect(() => {
         fetchLegos();
     }, []);
 
     const fetchLegos = async () => {
         const res = await getDb();
-        console.log("res if empty", res)
         setImages(res);
     }
 
+    //re-render after deletion
     const remove = async (id) => {
         const res = await deleteDb(id);
         if (!res) {

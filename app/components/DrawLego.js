@@ -1,16 +1,14 @@
 import { Asset } from 'expo-asset';
 
-export default function DrawLego({ picture, c }) {
+export default function DrawLego({ picture, c, fidelity }) {
 
-    const viewWidth = picture.width - (picture.width % 32);
-    const viewHeight = picture.height - (picture.height % 32);
+    //round the dimensions to the nearest lego brick (LTE)
+    const viewWidth = picture.width - (picture.width % fidelity);
+    const viewHeight = picture.height - (picture.height % fidelity);
 
-    console.log("imgTest", picture);
-    console.log("cTest", c);
-    let imgTest = new Image(viewWidth, viewHeight);
-    imgTest.src = picture.uri;
-
-    console.log("imgTest", picture);
+    //place the users image into the canvas
+    let backgroundImage = new Image(viewWidth, viewHeight);
+    backgroundImage.src = picture.uri;
 
     w = viewWidth;
     h = viewHeight;
@@ -18,35 +16,43 @@ export default function DrawLego({ picture, c }) {
     c.width = viewWidth;
     c.height = viewHeight;
 
-    console.log(c.width);
-
     ctx = c.getContext("2d", { willReadFrequently: true });
-
-    console.log(ctx);
-    ctx.drawImage(imgTest, 0, 0, viewWidth, viewHeight);
+    ctx.drawImage(backgroundImage, 0, 0, viewWidth, viewHeight);
 
     async function draw() {
 
-        const [{ localUri }] = await Asset.loadAsync(require('../assets/brick-32.png'));
+        //choose the correct brick picture
+        let path;
+        if (fidelity == 32) {
+            const [{ localUri }] = await Asset.loadAsync(require(`../assets/brick-32.png`));
+            path = localUri;
+        } else {
+            const [{ localUri }] = await Asset.loadAsync(require(`../assets/brick-16.png`));
+            path = localUri;
+        }
+
         const brick = new Image();
-        brick.src = localUri;
+        brick.src = path;
         await brick.decode();
 
-        let br = 32;
+        //nested for loops means "for each brick shaped block in the canvas"
+        for (let i = 0; i < w; i += fidelity) {
+            for (let j = 0; j < h; j += fidelity) {
 
-        for (let i = 0; i < w; i += br) {
-            for (let j = 0; j < h; j += br) {
+                //get the pixel data of the block
+                let pixelArr = ctx.getImageData(i, j, fidelity, fidelity).data;
 
-                let pixelArr = ctx.getImageData(i, j, br, br).data;
-
-                console.log("this is pixelArr", pixelArr);
-
+                //current sampling method is draw color out from top left corner, with 75% alpha
                 const currRGBA = "rgba(" + pixelArr[0] + "," + pixelArr[1] + "," + pixelArr[2] + ", .75)";
-                ctx.drawImage(brick, 0, 0, br, br, i, j, br, br);
+
+                //lay the brick texture down on the block's position
+                ctx.drawImage(brick, 0, 0, fidelity, fidelity, i, j, fidelity, fidelity);
+
+                //place the semi-transparent color sample over the block
                 ctx.fillStyle = currRGBA;
-                ctx.fillRect(i, j, br, br);
+                ctx.fillRect(i, j, fidelity, fidelity);
             }
         }
     }
-        draw();
+    draw();
 }

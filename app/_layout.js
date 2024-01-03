@@ -7,7 +7,10 @@ export default function Layout() {
 
                 screenOptions={{
                     headerStyle: {
-                        backgroundColor: '#f4511e',
+                       
+                        elevation: 0,
+                        shadowOpacity: 0,
+                        borderBottomWidth: 0
                     },
                     headerTitleAlign: 'center',
                     headerTintColor: '#20232a',

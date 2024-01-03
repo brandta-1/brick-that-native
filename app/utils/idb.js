@@ -1,14 +1,15 @@
 import { openDB } from 'idb';
 
+//indexed db create, read, delete functions
+
 const initdb = async () =>
     openDB('brickThatLibrary', 1, {
         upgrade(db) {
             if (db.objectStoreNames.contains('brickThatLibrary')) {
-                console.log('brickThatLibrary database already exists');
                 return;
             }
             db.createObjectStore('brickThatLibrary', { keyPath: 'id', autoIncrement: true });
-            console.log('brickThatLibrary database created');
+       
         },
     });
 

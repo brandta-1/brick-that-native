@@ -1,7 +1,7 @@
 import { Stack } from 'expo-router';
 import { PageHeaderButton } from '../components';
 
-export default function PageHeader({ page }) {
+export default function PageHeader({ page, about }) {
 
     var pages = {
 
@@ -32,10 +32,10 @@ export default function PageHeader({ page }) {
             options={{
                 title: `${current.title}`,
                 headerLeft: () => (
-                    <PageHeaderButton page={other[0]} left />
+                    <PageHeaderButton page={other[0]} left about={about}/>
                 ),
                 headerRight: () => (
-                    <PageHeaderButton page={other[1]} />
+                    <PageHeaderButton page={other[1]} about={about}/>
                 )
             }}
         />

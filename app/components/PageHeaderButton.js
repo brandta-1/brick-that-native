@@ -3,6 +3,7 @@ import { Text, Pressable, useWindowDimensions } from 'react-native';
 import styles, { wide } from '../utils/styles';
 
 export default function PageHeaderButton({ page, left }) {
+    
 
     const { link, button } = page;
 

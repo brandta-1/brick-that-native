@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { DrawLego } from '../components';
 
-export default function Canvas({ picture, drawLego, change, ...rest }) {
+export default function Canvas({ picture, drawLego, change, fidelity, ...rest }) {
 
     const myRef = useRef();
 
@@ -9,11 +9,14 @@ export default function Canvas({ picture, drawLego, change, ...rest }) {
 
         if (drawLego) {
 
-            DrawLego({ picture: picture, c: myRef.current });
+            //if this function was called from the create page, create a new lego mosaic
+            DrawLego({ picture: picture, c: myRef.current, fidelity: fidelity });
 
             change(myRef.current);
+
         } else {
 
+            //else, we are in the library, paint the users picture onto the canvas
             const canvas = myRef.current;
 
             const ctx = canvas.getContext('2d');
